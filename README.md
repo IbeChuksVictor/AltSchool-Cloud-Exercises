@@ -1,1 +1,1 @@
-Cloud Practice Exercise - AltSchool Africa.
+Cloud Practice Exercises - AltSchool Africa.
