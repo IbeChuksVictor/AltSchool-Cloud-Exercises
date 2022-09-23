@@ -10,12 +10,12 @@ You will get the content of the VMs' Vagrantfile by running the command:
  cat Vagrantfile
 ```
 
-![Exercise-1-0](/AltSchool-Cloud-Exercises/Exercise_1/Exercise-1a.png)
+![Exercise-1-0](Exercise-1a.png)
 <br>
 
 ### Exercise-1-1
 The image below shows the content of the VM when the ``` ifconfig ``` command is run; which shows the ip address generated for being configured to run on a private network.
 
-![Exercise-1-1](/AltSchool-Cloud-Exercises/Exercise_1/Exercise-1b.png)
+![Exercise-1-1](Exercise-1b.png)
 <br>
 
