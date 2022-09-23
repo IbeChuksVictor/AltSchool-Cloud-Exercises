@@ -10,7 +10,7 @@ $ git remote set-url <remote name> <remote url>
 ![Exercise-5-1](Exercise-5-1.png)
 <br>
 
-I also leart how to configure the git environment on my VMs using these commands:
+I also learnt how to configure the git environment on my VMs using these commands:
 ```
 $ git config --global user.name <username>
 $ git config --global user.email <emai address>
