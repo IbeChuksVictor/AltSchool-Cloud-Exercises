@@ -7,7 +7,7 @@ This shows the customization of my Virtual Machine via its Vagrantfile to work w
 You will get the content of the VMs' Vagrantfile by running the command:
 
 ```
- cat Vagrantfile
+ $  cat Vagrantfile
 ```
 
 ![Exercise-1-0](Exercise-1a.png)

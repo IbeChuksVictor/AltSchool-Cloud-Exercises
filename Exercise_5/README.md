@@ -4,7 +4,7 @@ I learnt about git, GitHub and GitLab and how to switch between each version con
 
 The command to run when switching is:
 ```
-$ git remote set-url <remote name> <remote url>
+$   git remote set-url <remote name> <remote url>
 ```
 
 ![Exercise-5-1](Exercise-5-1.png)
@@ -12,8 +12,8 @@ $ git remote set-url <remote name> <remote url>
 
 I also learnt how to configure the git environment on my VMs using these commands:
 ```
-$ git config --global user.name <username>
-$ git config --global user.email <emai address>
+$   git config --global user.name <username>
+$   git config --global user.email <emai address>
 ```
 
 ![Exercise-5-0](Exercise-5-0.png)
@@ -21,7 +21,7 @@ $ git config --global user.email <emai address>
 
 You can also see the list of commits you have made with this command:
 ```
-git log
+$   git log
 ```
 
 ![Exercise-5-2](Exercise-5-2.png)
