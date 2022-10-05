@@ -9,6 +9,6 @@ Below are screenshots of how I was able to achieve to achieve the creation of a 
 ![Exercise-7-0](Exercise-7-0.png)
 <br>
 
-### crontab
+### Crontab:
 ![Exercise-7-1](Exercise-7-1.png)
 <br>
