@@ -1,0 +1,80 @@
+Wed Oct  5 09:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       165Mi       279Mi       3.0Mi       531Mi       657Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 10:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       166Mi       270Mi       3.0Mi       531Mi       657Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 11:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       341Mi        72Mi       3.0Mi       563Mi       484Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 12:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       342Mi        82Mi       3.0Mi       551Mi       483Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 13:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       346Mi        78Mi       3.0Mi       551Mi       479Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 14:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       344Mi        80Mi       3.0Mi       552Mi       481Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 15:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       345Mi        90Mi       3.0Mi       540Mi       480Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 16:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       354Mi        78Mi       3.0Mi       544Mi       480Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 17:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       360Mi        88Mi       3.0Mi       527Mi       473Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 18:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       171Mi       276Mi       3.0Mi       528Mi       663Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 19:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       172Mi       275Mi       3.0Mi       528Mi       662Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 20:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       172Mi       271Mi       3.0Mi       532Mi       662Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 21:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       171Mi       270Mi       3.0Mi       534Mi       662Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 22:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       172Mi       269Mi       3.0Mi       534Mi       662Mi
+Swap:            0B          0B          0B
+--------------------
+Wed Oct  5 23:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       171Mi       261Mi       3.0Mi       543Mi       662Mi
+Swap:            0B          0B          0B
+--------------------
+Thu Oct  6 00:00:01 WAT 2022
+              total        used        free      shared  buff/cache   available
+Mem:          976Mi       172Mi       231Mi       3.0Mi       573Mi       657Mi
+Swap:            0B          0B          0B
+--------------------
