@@ -12,3 +12,6 @@ Below are screenshots of how I was able to achieve the creation of a bash script
 ### Crontab:
 ![Exercise-7-1](Exercise-7-1.png)
 <br>
+
+### Content of the mail sent from the terminal using contrab, bash script and ssmtp
+![Exercise-7-2](Exercise-7-2.png)
