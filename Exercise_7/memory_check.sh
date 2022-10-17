@@ -29,3 +29,6 @@ if [[ $TIMETOSEND == 0000 ]]; then
 	echo "Hello Chuks,
 Find attached the memory log for today." | mail -s "Memory Log" -A $LOGFILE $EMAIL
 fi
+
+
+cd
