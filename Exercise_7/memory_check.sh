@@ -10,7 +10,8 @@ EMAIL="ibechuksvictor@gmail.com"
 TIMETOSEND=$(date +%H%M)
 
 # function that creates log file
-function logfile() {
+function logfile() 
+{
 	if test -f $LOGFILE; then
 		date >> $LOGFILE
 		free -h >> $LOGFILE
@@ -29,6 +30,3 @@ if [[ $TIMETOSEND == 0000 ]]; then
 	echo "Hello Chuks,
 Find attached the memory log for today." | mail -s "Memory Log" -A $LOGFILE $EMAIL
 fi
-
-
-cd
