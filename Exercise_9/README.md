@@ -8,11 +8,13 @@ What is the Network IP, number of hosts, range of IP addresses and broadcast IP 
 
 ## **Output**
 
-|                     |                             |
-| ------------------- | --------------------------- |
-| IP Address          | 193.16.20.35                |
-| Network IP          | 193.16.20.32                |
-| Range of IP address | 193.16.20.33 - 193.16.20.38 |
-| Broadcast IP        | 193.16.20.39                |
-|                     |                             |
+|                         |                             |
+| -------------------     | --------------------------- |
+| IP Address              | 193.16.20.35                |
+| Network IP              | 193.16.20.32                |
+| Range of IP address     | 193.16.20.33 - 193.16.20.38 |
+| Broadcast IP            | 193.16.20.39                |
+| Number of Hosts         | 8                           |
+| Number of Usable Hosts  | 6                           |
+|                         |                             |
 
