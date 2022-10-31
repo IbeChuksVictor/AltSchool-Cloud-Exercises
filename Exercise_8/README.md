@@ -21,5 +21,4 @@ Ansible can be used to do alot of things including updating the content of a web
 This is the rendered result of changing the content of the default `/var/www/html/index.html` apache2 web page to `var/www/html/index.php`:
 <br>
 ![Exercise-8-2](Exercise-8-2.png)
-
- 
+<br>
