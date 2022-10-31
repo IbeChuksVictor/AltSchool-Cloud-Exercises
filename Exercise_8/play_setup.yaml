@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  user: vagrant
   become: true
   tasks:
   - name: install updates
@@ -13,17 +14,23 @@
       state: latest
 
   - name: copy default php file
-    copy:
-      src: index.php
-      dest: /var/www/html/index.php
-      owner: root
-      group: root
-      mode: 0644
-
+    file:
+      path: /var/www/html/index.php
+      state: touch
 
   - name: delete index.html
     file:
       path: /var/www/html/index.html
       state: absent
 
-
+  - name: copy content of file
+    copy:
+      src: index.php
+      dest: /var/www/html/index.php
+      owner: root
+      group: root
+      mode: 0644
+  
+  - name: set timezone to Africa/Lagos
+    timezone:
+      name: Africa/Lagos
