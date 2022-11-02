@@ -13,7 +13,7 @@
       name: apache2
       state: latest
 
-  - name: copy default php file
+  - name: create default php file
     file:
       path: /var/www/html/index.php
       state: touch
