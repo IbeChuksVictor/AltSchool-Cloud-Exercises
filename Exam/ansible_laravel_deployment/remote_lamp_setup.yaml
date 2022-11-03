@@ -1,0 +1,272 @@
+---
+- name: Remote Lamp Setup
+  hosts: all
+  become: true
+  
+  vars_files:
+  - lamp_vars.yaml
+  
+  pre_tasks:
+  - name: install updates
+    apt:
+      update_cache: yes
+      upgrade: dist   
+
+  - name: install essential packages
+    apt:   
+      name:
+        - wget
+        - unzip
+        - git
+        - pip      
+      state: latest
+
+  - name: install ufw
+    apt:
+      name: ufw
+      state: latest
+
+  - name: allow everything and enable ufw
+    ufw:
+      policy: allow
+      state: enabled
+
+  - name: set timezone to Africa/Lagos
+    timezone:
+      name: Africa/Lagos
+
+  - name: set hostname
+    hostname:
+      name: "{{ host_name }}"
+
+  - name: hostname config
+    lineinfile:
+      path: /etc/hosts
+      line: "{{ host_address }} {{ host_name }} {{host_type}}"
+      create: yes
+
+
+- hosts: all
+  become: true
+
+  vars_files:
+  - lamp_vars.yaml
+    
+
+
+  tasks:  
+  - name: install apache2, mysql and php
+    apt:
+      name: 
+        - apache2
+        - mysql-server
+        - mysql-client
+        - php
+        - php-common
+        - php-opcache
+        - php-tokenizer
+        - php-json
+        - php-bcmath
+        - php-zip
+        - php-mysql
+        - php-curl
+        - php-gd
+        - php-mbstring
+        - php-xml
+        - php-xmlrpc
+        - php-soap
+        - php-intl
+        - libapache2-mod-php
+      state: latest
+
+  - name: create mysql config file
+    template:
+      src: mysql.cnf.j2
+      dest: /etc/mysql/mysql.conf.d/mysql.cnf
+    notify: restart mysql
+
+  - name: create mysql log file
+    file:
+      path: "{{ log_path }}mysql.log"
+      state: touch
+      owner: mysql
+      group: mysql
+      mode: 0775
+
+  - name: starting mysql service on boot
+    become: true
+    service:
+      name: mysql
+      state: started
+      enabled: yes
+
+  - name: php ini config1
+    lineinfile:
+      path: /etc/php/7.4/apache2/php.ini
+      regexp: '^upload_max_filesize'
+      line: upload_max_filesize = 32M
+
+  - name: php ini config2
+    lineinfile:
+      path: /etc/php/7.4/apache2/php.ini
+      regexp: '^post_max_size'
+      line: post_max_size = 48M
+
+  - name: php ini config3
+    lineinfile:
+      path: /etc/php/7.4/apache2/php.ini
+      regexp: '^memory_limit'
+      line: memory_limit = 256M
+
+  - name: php ini config4
+    lineinfile:
+      path: /etc/php/7.4/apache2/php.ini
+      regexp: '^max_execution_time'
+      line: max_execution_time = 3000
+
+  - name: php ini config5
+    lineinfile:
+      path: /etc/php/7.4/apache2/php.ini
+      regexp: '^max_input_vars'
+      line: max_input_vars = 3000
+
+  - name: php ini config6
+    lineinfile:
+      path: /etc/php/7.4/apache2/php.ini
+      regexp: '^max_input_time'
+      line: max_input_time = 1000
+
+  - name: disable default site
+    shell: /usr/sbin/a2dissite 000-default.conf
+
+  - name: download composer installer
+    get_url:
+      url: https://getcomposer.org/installer
+      dest: /tmp/composer-setup.php
+
+  - name: install composer
+    shell: php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+  - name: move composer to run globally
+    shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer
+
+  
+  - name: clone laravel-realworld-example-app
+    git:
+      repo: https://github.com/f1amy/laravel-realworld-example-app.git
+      dest: /var/www/html/laravel-realworld-example-app
+
+  - name: change name of app directory
+    shell: mv /var/www/html/laravel-realworld-example-app /var/www/html/{{ app_name }}
+
+  - name: set app directory permissions
+    file:
+      path: /var/www/html/{{ app_name }}
+      state: directory
+      owner: www-data
+      group: www-data
+      mode: 0775
+
+  - name: set app storage directory permissions
+    file:
+      path: /var/www/html/{{ app_name }}/storage
+      state: directory
+      owner: www-data
+      group: www-data
+      mode: 0775
+
+  - name: virtual host config
+    template:
+      src: apache2.conf.j2
+      dest: /etc/apache2/sites-available/{{ app_name }}.conf
+    notify: restart apache2
+
+  - name: enable virtual host
+    shell: usr/sbin/a2ensite {{ app_name }}.conf
+    notify: restart apache2
+
+
+
+  - name: copy env file
+    copy:
+    src: /var/www/html/{{ app_name }}/.env.example
+      remote_src: yes
+      dest: /var/www/html/{{ app_name }}/.env
+      owner: www-data
+      group: www-data
+      mode: 0644
+
+  - name: configure env file
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^APP_NAME'
+      line: APP_NAME={{ app_name }}
+
+  - name: configure env file
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^APP_ENV'
+      line: APP_ENV=local
+
+  - name: configure env file
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^APP_URL'
+      line: APP_URL=http://{{ domain_name }}
+
+  - name: configure env file db_connection
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^DB_CONNECTION'
+      line: DB_CONNECTION={{ mysqlbd_name }}
+
+  - name: configure env file db_connection
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^DB_HOST'
+      line: DB_HOST=localhost
+
+  - name: configure env file db_connection
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^DB_PORT'
+      line: DB_PORT={{ mysqlbd_port }}
+
+  - name: configure env file db_connection
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^DB_DATABASE'
+      line: DB_DATABASE={{ mysqlbd_user }}
+
+  - name: configure env file db_connection
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^DB_USERNAME'
+      line: DB_USERNAME={{ mysqlbd_user }}
+
+  - name: configure env file db_connection
+    lineinfile:
+      path: /var/www/html/{{ app_name }}/.env
+      regexp: '^DB_PASSWORD'
+      line: DB_PASSWORD={{ mysqlbd_password }}
+
+  - name: install ibechuksvictor dependencies
+    shell: composer install --working-dir=/var/www/html/{{ app_name }}
+
+
+  handlers:
+  - name: restart mysql
+    service: 
+      name: mysql 
+      state: restarted
+
+  - name: restart apache2
+    service: 
+      name: apache2
+      state: restarted
+    
+
+
+
+  
+
