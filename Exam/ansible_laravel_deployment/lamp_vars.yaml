@@ -1,12 +1,13 @@
 ---
-mysqldb_name: mysql
-mysqldb_port: 3306
-mysqldb_user: "ibechuksvictor"
-mysqldb_password: "root"
-log_path: "/var/log/"
-host_address: 13.69.144.34
+mysql_host: mysql
+db_name: "ibechuksvictor"
+db_port: 3306
+db_user: "ibechuksvictor"
+db_user_password: "ibechuksvictor"
+db_password: "root"
+host_address: 20.238.32.87
 host_name: "server.ibechuksvictor.me"
-host_type: "lamp"
+host_type: "lamp_server"
 app_name: "ibechuksvictor"
 domain_name: "ibechuksvictor.me"
 

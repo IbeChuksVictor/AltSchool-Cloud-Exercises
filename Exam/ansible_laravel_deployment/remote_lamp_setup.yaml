@@ -1,272 +1,262 @@
 ---
-- name: Remote Lamp Setup
+- name: Remote Lamp Setup for {{ app_name }} app
   hosts: all
-  become: true
-  
-  vars_files:
-  - lamp_vars.yaml
-  
-  pre_tasks:
-  - name: install updates
-    apt:
-      update_cache: yes
-      upgrade: dist   
+  remote_user: root
+ 
+ 
+  tasks:
+    - name: index repo update
+      apt:
+        update_cache: true
+        upgrade: true
+    - name: required dependencies update
+      apt:
+        name:
+          - python3-pip
+          - git
+          - lsb-release
+          - ca-certificates
+          - apt-transport-https
+          - software-properties-common
+          - gnupg2
+          - curl
+          - wget
+          - debconf-utils
+          - libaio1
 
-  - name: install essential packages
-    apt:   
-      name:
-        - wget
-        - unzip
-        - git
-        - pip      
-      state: latest
+    - name: pymysql
+      shell: python3 -m pip install PyMySQL
 
-  - name: install ufw
-    apt:
-      name: ufw
-      state: latest
+    - name: pip
+      shell: pip install cryptography
 
-  - name: allow everything and enable ufw
-    ufw:
-      policy: allow
-      state: enabled
+    - name: install apache2
+      apt:
+        name: apache2, apache2-utils
 
-  - name: set timezone to Africa/Lagos
-    timezone:
-      name: Africa/Lagos
+    - name: php repo
+      apt_repository:
+        repo: ppa:ondrej/php
 
-  - name: set hostname
-    hostname:
-      name: "{{ host_name }}"
+    - name: index repo update
+      apt:
+        update_cache: true
+        upgrade: true
 
-  - name: hostname config
-    lineinfile:
-      path: /etc/hosts
-      line: "{{ host_address }} {{ host_name }} {{host_type}}"
-      create: yes
+    - name: install php
+      apt:
+        name: php8.1, libapache2-mod-php8.1, php8.1-cli, php8.1-common, php8.1-mysql, php8.1-opcache, php8.1-soap, php8.1-zip, php8.1-intl, php8.1-bcmath, php8.1-xml, php8.1-xmlrpc, php8.1-curl, php8.1-gd, php8.1-imagick, php8.1-cli, php8.1-dev, php8.1-imap, php8.1-mbstring
 
+    - name: mysql dependencies
+      shell:
+        debconf-set-selections <<EOF
+        mysql-apt-config mysql-apt-config/select-server select mysql-8.0
+        "mysql-community-server mysql-community-server/root-pass password root"
+        "mysql-community-server mysql-community-server/re-root-pass password root"
+        EOF
 
-- hosts: all
-  become: true
+    - name: install mysql
+      shell: wget --user-agent="Mozilla" -O /tmp/mysql-apt-config_0.8.24-1_all.deb https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb
 
-  vars_files:
-  - lamp_vars.yaml
-    
+    - name: mysql interactive
+      shell: sudo DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/mysql-apt-config_0.8.24-1_all.deb < /dev/null > /dev/null
 
+    - name: index repo update
+      apt:
+        update_cache: true
+        upgrade: true
 
-  tasks:  
-  - name: install apache2, mysql and php
-    apt:
-      name: 
-        - apache2
-        - mysql-server
-        - mysql-client
-        - php
-        - php-common
-        - php-opcache
-        - php-tokenizer
-        - php-json
-        - php-bcmath
-        - php-zip
-        - php-mysql
-        - php-curl
-        - php-gd
-        - php-mbstring
-        - php-xml
-        - php-xmlrpc
-        - php-soap
-        - php-intl
-        - libapache2-mod-php
-      state: latest
+    - name: mysql sever and mysql client
+      shell: DEBIAN_FRONTEND=noninteractive apt-get install mysql-server mysql-client --assume-yes --force-yes < /dev/null > /dev/null
 
-  - name: create mysql config file
-    template:
-      src: mysql.cnf.j2
-      dest: /etc/mysql/mysql.conf.d/mysql.cnf
-    notify: restart mysql
+    - name: create database
+      shell: 'mysql -ne root'
+      with_items:
+        - CREATE DATABASE {{ db_name }};
 
-  - name: create mysql log file
-    file:
-      path: "{{ log_path }}mysql.log"
-      state: touch
-      owner: mysql
-      group: mysql
-      mode: 0775
+    - name: create database user
+      shell: 'mysql -ne "{{ db_user}}"'
+      with_items:
+        - CREATE USER '{{ db_user }}'@'localhost' IDENTIFIED BY '{{ db_user_password }}';
 
-  - name: starting mysql service on boot
-    become: true
-    service:
-      name: mysql
-      state: started
-      enabled: yes
+    - name: granting privileges to database user
+      shell: 'mysql -ne "root"'
+      with_items:
+        - GRANT ALL PRIVILEGES ON {{ app_name }}.* TO '{{ app_name }}'@'localhost';
 
-  - name: php ini config1
-    lineinfile:
-      path: /etc/php/7.4/apache2/php.ini
-      regexp: '^upload_max_filesize'
-      line: upload_max_filesize = 32M
+    - name: flushing user privileges
+      shell: 'mysql -ne "root"'
+      with_items:
+        - FLUSH PRIVILEGES;
 
-  - name: php ini config2
-    lineinfile:
-      path: /etc/php/7.4/apache2/php.ini
-      regexp: '^post_max_size'
-      line: post_max_size = 48M
+    - name: copying bash script to install postgresql
+      copy:
+        src: /home/vagrant/pgsql.sh
+        dest: /root
 
-  - name: php ini config3
-    lineinfile:
-      path: /etc/php/7.4/apache2/php.ini
-      regexp: '^memory_limit'
-      line: memory_limit = 256M
+    - name: running bash script to install postgresl
+      shell: bash /root/pgsql.sh
 
-  - name: php ini config4
-    lineinfile:
-      path: /etc/php/7.4/apache2/php.ini
-      regexp: '^max_execution_time'
-      line: max_execution_time = 3000
+    - name: git clone laravel app
+      shell: git clone https://github.com/f1amy/{{ app_name }}-realworld-example-app.git /var/www/{{ app_name }}
 
-  - name: php ini config5
-    lineinfile:
-      path: /etc/php/7.4/apache2/php.ini
-      regexp: '^max_input_vars'
-      line: max_input_vars = 3000
+    - name: configuring .env file
+      copy:
+        dest: /var/www/{{ app_name }}/.env
+        content: |
+          APP_NAME="{{ app_name }}"
+          APP_ENV=local
+          APP_KEY=
+          APP_DEBUG=true
+          APP_URL=https://localhost
+          APP_PORT=3000
+          LOG_CHANNEL=stack
+          LOG_DEPRECATIONS_CHANNEL=null
+          LOG_LEVEL=debug
+          DB_CONNECTION=mysql
+          DB_HOST=localhost
+          DB_PORT=3306
+          DB_DATABASE={{ app_name }}
+          DB_USERNAME={{ app_name }}
+          DB_PASSWORD={{ app_name }}
+          BROADCAST_DRIVER=log
+          CACHE_DRIVER=file
+          FILESYSTEM_DISK=local
+          QUEUE_CONNECTION=sync
+          SESSION_DRIVER=file
+          SESSION_LIFETIME=120
+          MEMCACHED_HOST=127.0.0.1
+          REDIS_HOST=127.0.0.1
+          REDIS_PASSWORD=null
+          REDIS_PORT=6379
+          MAIL_MAILER=smtp
+          MAIL_HOST=mailhog
+          MAIL_PORT=1025
+          MAIL_USERNAME=null
+          MAIL_PASSWORD=null
+          MAIL_ENCRYPTION=null
+          MAIL_FROM_ADDRESS="hello@example.com"
+          MAIL_FROM_NAME="${APP_NAME}"
+          AWS_ACCESS_KEY_ID=
+          AWS_SECRET_ACCESS_KEY=
+          AWS_DEFAULT_REGION=us-east-1
+          AWS_BUCKET=
+          AWS_USE_PATH_STYLE_ENDPOINT=false
+          PUSHER_APP_ID=
+          PUSHER_APP_KEY=
+          PUSHER_APP_SECRET=
+          PUSHER_APP_CLUSTER=mt1
+          MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+          MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+          L5_SWAGGER_GENERATE_ALWAYS=true
+          SAIL_XDEBUG_MODE=develop,debug
+          SAIL_SKIP_CHECKS=true
 
-  - name: php ini config6
-    lineinfile:
-      path: /etc/php/7.4/apache2/php.ini
-      regexp: '^max_input_time'
-      line: max_input_time = 1000
+    - name: web page
+      blockinfile:
+        path: /var/www/{{ app_name }}/routes/web.php
+        block: |
+          Route::get('/', function () {
+            return view('welcome');
+          });
 
-  - name: disable default site
-    shell: /usr/sbin/a2dissite 000-default.conf
+    - name: set app owner
+      shell: chown -R www-data:www-data /var/www/{{ app_name }}
 
-  - name: download composer installer
-    get_url:
-      url: https://getcomposer.org/installer
-      dest: /tmp/composer-setup.php
+    - name: set app rwx pemissions
+      shell: chmod -R 0755 /var/www/{{ app_name }}
 
-  - name: install composer
-    shell: php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    - name: set app storage permissions
+      shell: chmod -R 0755 /var/www/{{ app_name }}/storage
 
-  - name: move composer to run globally
-    shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer
+    - name: set app cache permissions
+      shell: chmod -R 0755 /var/www/{{ app_name }}/bootstrap/cache
 
-  
-  - name: clone laravel-realworld-example-app
-    git:
-      repo: https://github.com/f1amy/laravel-realworld-example-app.git
-      dest: /var/www/html/laravel-realworld-example-app
+    - name: copying .htaccess file to app server
+      copy:
+        dest: "/var/www/{{ app_name }}/.htaccess"
+        content: |
+          <IfModule mod_rewrite.c>
+            RewriteEngine On
+            RewriteCond %{REQUEST_URI} !^/public/
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^(.*)$ /public/$1
+            RewriteRule ^(/)?$ public/index.php [L]
+          </IfModule>
 
-  - name: change name of app directory
-    shell: mv /var/www/html/laravel-realworld-example-app /var/www/html/{{ app_name }}
+    - name: php composer setup
+      shell: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 
-  - name: set app directory permissions
-    file:
-      path: /var/www/html/{{ app_name }}
-      state: directory
-      owner: www-data
-      group: www-data
-      mode: 0775
+    - name: php repository file
+      shell: php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 
-  - name: set app storage directory permissions
-    file:
-      path: /var/www/html/{{ app_name }}/storage
-      state: directory
-      owner: www-data
-      group: www-data
-      mode: 0775
+    - name: composer setup
+      shell: php composer-setup.php
 
-  - name: virtual host config
-    template:
-      src: apache2.conf.j2
-      dest: /etc/apache2/sites-available/{{ app_name }}.conf
-    notify: restart apache2
+    - name: unlinking php
+      shell: php -r "unlink('composer-setup.php');"
 
-  - name: enable virtual host
-    shell: usr/sbin/a2ensite {{ app_name }}.conf
-    notify: restart apache2
+    - name: moving composer to run globally
+      shell: mv composer.phar /usr/local/bin/composer
 
+    - name: composer create project
+      shell: cd /var/www/{{ app_name }} && composer create-project -n
 
+    - name: migartion seed
+      shell: cd /var/www/{{ app_name }} && php artisan migrate --seed
 
-  - name: copy env file
-    copy:
-    src: /var/www/html/{{ app_name }}/.env.example
-      remote_src: yes
-      dest: /var/www/html/{{ app_name }}/.env
-      owner: www-data
-      group: www-data
-      mode: 0644
+    - name: apache config file
+      copy:
+        dest: "/etc/apache2/sites-available/domain.conf"
+        content: |
+          <VirtualHost *:80>
+              ServerAdmin email@domain.com
+              ServerName domain.com
+              ServerAlias domain.com
+              DocumentRoot /var/www/{{ app_name }}/
+              <Directory /var/www/{{ app_name }}/>
+                  Options Indexes FollowSymLinks
+                  AllowOverride All
+                  Require all granted
+              </Directory>
+              ErrorLog ${APACHE_LOG_DIR}/error.log
+              CustomLog ${APACHE_LOG_DIR}/access.log combined
+          </VirtualHost>
 
-  - name: configure env file
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^APP_NAME'
-      line: APP_NAME={{ app_name }}
+    - name: disabling default apache site
+      shell: a2dissite 000-default.conf
 
-  - name: configure env file
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^APP_ENV'
-      line: APP_ENV=local
+    - name: enabling new site
+      shell: a2ensite {{ app_name }}.conf
 
-  - name: configure env file
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^APP_URL'
-      line: APP_URL=http://{{ domain_name }}
+    - name: enabling mod rewrite
+      shell: a2enmod rewrite
 
-  - name: configure env file db_connection
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^DB_CONNECTION'
-      line: DB_CONNECTION={{ mysqlbd_name }}
+    - name: restarting apache
+      service:
+        name: apache2
+        state: restarted
 
-  - name: configure env file db_connection
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^DB_HOST'
-      line: DB_HOST=localhost
+    - name: app ownership change
+      shell: chown -R www-data:www-data /var/www/{{ app_name }}
 
-  - name: configure env file db_connection
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^DB_PORT'
-      line: DB_PORT={{ mysqlbd_port }}
+    - name: ssl package install snap
+      apt:
+        name:
+          - snapd
 
-  - name: configure env file db_connection
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^DB_DATABASE'
-      line: DB_DATABASE={{ mysqlbd_user }}
+    - name: snap install core
+      shell: snap install core
 
-  - name: configure env file db_connection
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^DB_USERNAME'
-      line: DB_USERNAME={{ mysqlbd_user }}
+    - name: snap refresh core
+      shell: snap refresh core
 
-  - name: configure env file db_connection
-    lineinfile:
-      path: /var/www/html/{{ app_name }}/.env
-      regexp: '^DB_PASSWORD'
-      line: DB_PASSWORD={{ mysqlbd_password }}
+    - name: snap install cerboot
+      shell: snap install --classic certbot
+    - name: linking cerbook
+      shell: ln -s /snap/bin/certbot /usr/bin/certbot
 
-  - name: install ibechuksvictor dependencies
-    shell: composer install --working-dir=/var/www/html/{{ app_name }}
-
-
-  handlers:
-  - name: restart mysql
-    service: 
-      name: mysql 
-      state: restarted
-
-  - name: restart apache2
-    service: 
-      name: apache2
-      state: restarted
-    
-
-
-
-  
-
+    - name: ssl cert config
+      shell: yes | certbot --apache --agree-tos --redirect -m support@{{ domain_name }} -d "{{ domain_name }}"
+ 
