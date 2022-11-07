@@ -1,7 +1,8 @@
 ---
 - name: Remote Lamp Setup for {{ app_name }} app
   hosts: laravel_app_server
-  remote_user: root
+  remote_user: azureuser
+  become: true
  
  
   tasks:
