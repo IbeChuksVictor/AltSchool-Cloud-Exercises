@@ -1,5 +1,5 @@
 [laravel_app_server]
-20.238.32.87
+20.238.32.87    ansible_user=azureuser  ansible_ssh_user=azureuser ansible_ssh_private_key_file=./deb_key.pem
 
 [master]
-68.219.107.50
+68.219.107.50   ansible_user=azureuser  ansible_ssh_user=azureuser  ansible_ssh_private_key_file=./master_key.pem
