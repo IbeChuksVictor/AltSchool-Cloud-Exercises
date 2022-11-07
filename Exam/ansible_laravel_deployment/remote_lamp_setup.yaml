@@ -1,6 +1,6 @@
 ---
 - name: Remote Lamp Setup for {{ app_name }} app
-  hosts: all
+  hosts: laravel_app_server
   remote_user: root
  
  
