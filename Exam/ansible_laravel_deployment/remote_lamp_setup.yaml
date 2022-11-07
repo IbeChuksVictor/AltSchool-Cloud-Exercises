@@ -92,11 +92,11 @@
 
     - name: copying bash script to install postgresql
       copy:
-        src: /home/azureuser/pgsql.sh
+        src: /home/azureuser/postgresql.sh
         dest: ~/azureuser/
 
     - name: running bash script to install postgresl
-      shell: bash ~/azureuser/pgsql.sh
+      shell: bash ~/azureuser/postgresql.sh
 
     - name: git clone laravel app
       shell: git clone https://github.com/f1amy/{{ app_name }}-realworld-example-app.git /var/www/{{ app_name }}
