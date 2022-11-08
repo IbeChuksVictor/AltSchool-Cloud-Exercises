@@ -1,6 +1,4 @@
-#!/bin/bash -ex
-
-# This script is for use with the DevOps Challenge of installing PostgreSQL 9.6 on to a provisioned AWS EC2 instance running Ubuntu.
+#!/bin/bash
 
 # This script will perform the following steps:
 # 1. Set variables such as $packages, $rfolder, $dfolder, $gitloc, $sysuser, $logfile, and $helloscript
