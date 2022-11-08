@@ -259,5 +259,5 @@
       shell: ln -s /snap/bin/certbot /usr/bin/certbot
 
     - name: ssl cert config
-      shell: yes | certbot --apache --agree-tos --redirect -m support@{{ domain_name }} -d "{{ domain_name }}"
+      shell: yes | certbot --apache --agree-tos --redirect -m support@{{ domain_name }} -d "{{ domain_name }}" -d www."{{ domain_name }}"
  
