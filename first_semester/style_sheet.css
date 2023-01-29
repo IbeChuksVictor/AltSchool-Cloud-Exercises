@@ -1,0 +1,648 @@
+/* This is the section for fonts families */
+
+@font-face {
+    font-family: 'Mabry Pro';
+    src: url('MabryPro-Medium.eot');
+    src: url('MabryPro-Medium.eot?#iefix') format('embedded-opentype'),
+        url('MabryPro-Medium.woff2') format('woff2'),
+        url('MabryPro-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+html, body {
+    height: 100%;
+    max-width: 100%;
+    padding: 0px;
+    font-family: Mabry Pro;
+    font-size: 12px;
+    background: #010232;
+    color: #F4EEEE;
+}
+
+* {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+a {
+    text-decoration: none;
+    color: #010232;
+}
+
+section {
+    display: block;
+    padding: 0% 8% 0% 8%;
+  }
+
+.inline {
+    display: inline-block;
+}
+
+p {
+    word-wrap: break-word;
+}
+
+.wrapper {
+    min-width: 100%;
+    min-height: 100%;
+    padding: 0% 5% 0% 5%;
+}
+
+.center {
+    padding: 2%;
+    width: 100%;
+}
+
+/* This is the section for header */
+
+.header {
+    max-height: 60px;
+    background: #F4EEEE;
+    color: #010232;
+    align-items: center;
+    border-bottom-color: #010232;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.right {
+    flex: 80%;
+}
+
+.right span {
+    float: right;
+    padding-right: 45px;
+    display: inline;
+}
+
+.right a {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.left {
+    flex: 20%;
+}
+
+.left span {
+    float: left;
+    padding-left: 45px;
+    display: inline;
+}
+
+/* This section is for footer */
+
+.footer {
+    max-height: 60px;
+    background: #F4EEEE;
+    color: #010232;
+    align-items: center;
+    border-bottom-color: #010232;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2% 6% 10% 6%;              
+}
+
+.fright {
+    flex: 80%;
+}
+
+.fright p {
+    float: right;
+    padding-right: 45px;
+    display: inline;
+}
+
+.fright a {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.fleft {
+    flex: 20%;
+}
+
+.fleft p {
+    float: left;
+    padding-left: 4%;
+    display: inline;
+}
+
+/* This the section for Intro Section */
+
+#Intro_Section {
+    min-height: 100vh;
+    min-width: 1000px;
+}
+
+.intro {
+    min-height: 90vh;
+    background-color: #F4EEEE;
+    display: flex;
+    justify-content: space-between;
+    padding: 0% 5% 1% 5%;
+    border-radius: 0px 0px 100px 100px;
+}
+
+.intro_col {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 5% 0% 1% 0%;
+}
+
+.bottom {
+    position: absolute;                
+    bottom:0;                        
+    left:0; 
+    margin: 0px 0px 50px 0px;
+}
+
+.social_media {
+    margin: 20px 0px 0px 0px;
+    vertical-align: center;
+}
+
+.social_media a {
+    display: inline;
+    margin: 0px 10px 0px 10px;
+}
+
+/* This the section for Experience Section */
+
+#Experience {
+    min-height: 80%;
+    min-width: inherit;
+}
+
+.Ex {
+    max-height: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5% 0% 2% 0%;
+}
+
+.page_col {
+    display: flex;
+    flex-direction: column;
+    background-color: #F4EEEE;
+    width: 33.3%;
+    margin: 0% 0% 0% 0%;
+    position: relative;
+    border-radius: 30px 0px 30px 0px;
+    padding: 0px 2% 0% 2%;
+    width: 31%;
+}
+
+.page_col .col_item {
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 0px 0px 30px 0px;
+    
+}
+
+.navigation {
+    display: flex;
+    padding: 0% 0% 3% 0%;
+}
+
+/* This the section for Contacts Section */
+
+#Contact {
+    min-height: 80%;
+    min-width: 100%;
+    
+}
+
+.contact {
+    max-height: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5% 0% 2% 0%;
+}
+
+.contact_col {
+    display: flex;
+    flex-direction: column;
+    background-color: #F4EEEE;
+    position: relative;
+    border-radius: 30px 0px 30px 0px;
+    padding: 0% 3% 10% 3%;
+    min-width: 40%;
+}
+
+/* This the section for Register and Login Page */
+
+#User {
+    min-height: 100vh;
+    min-width: 100%;
+    padding: 5% 0 10% 0;
+    margin: 0 auto;
+}
+
+.user_wrapper {
+    max-width: 500px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+.user_body {
+    display: block;
+    background-color: #F4EEEE;
+    border-radius: 30px 0px 30px 0px;
+    padding: 2% 7% 15% 7%;
+    margin: 0% 0% 5% 0%;
+}
+
+.user_logo {
+    padding: 0% 0% 8% 0%;
+}
+
+
+label {
+    float: left;
+}
+
+/* This is the section for texts */
+
+h2 {
+    font-weight: 600;
+}
+
+.red_055_600 {
+    color: red;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.red_016_bold {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.def_040_400 {
+    color: #010232;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 20px 0px 20px 0px;
+}
+
+.def_020_200 {
+    color: #010232;
+    font-size: 16px;
+    font-weight: 200;
+}
+
+.def_025_300 {
+    color: #010232;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.Ex_title {
+    color: #010232;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 0px 5px 0px;
+    display: flex;
+    align-items:center;
+}
+
+.Ex_title_desc {
+    color: #010232;
+    font-size: 12px;
+    padding: 2px 0px 2px 26px;
+}
+
+.input_title {
+    color: #010232;
+    font-size: 14px;
+    padding: 0px 0px 5px 0px;
+}
+
+.Ex_Responsibility {
+    color: #010232;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5% 0px 2px 26px;
+}
+
+.Ex_Respo_list {
+    color: #010232;
+    font-size: 12px;
+    padding: 2px 0px 2px 40px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.page_col_header {
+    color: #010232;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 20px 0px 5% 0px;
+    padding: 0px 0px 10px 0px;
+    display: flex;
+    align-items:center;
+}
+
+.user_col_header {
+    color: #010232;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0px 1px 0px;
+}
+
+.fg_password {
+    color: #010232;
+    font-size: 12px;
+    padding: 2px 0px 2px 0px;
+}
+
+/* This is a section for buttons */
+
+.link {
+    margin: 50px 0px 50px 0px;
+}
+
+.icon_button {
+    background-color: #010232;
+    opacity: 1;
+    padding: 10px 10px 10px 10px;
+    color: #F4EEEE;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+    margin: 0px 10px 0px 0px;
+    
+}
+
+.icon_button:hover {
+    background-color: #010232;
+    opacity: 0.75;
+    padding: 10px 10px 10px 10px;
+    color: #F4EEEE;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+    margin: 0px 10px 0px 0px;
+}
+
+.link_button {
+    background-color: #010232;
+    opacity: 1;
+    padding: 10px 30px 10px 30px;
+    color: #F4EEEE;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+}
+
+.link_button:hover {
+    background-color: #010232;
+    opacity: 0.75;
+    padding: 10px 30px 10px 30px;
+    color: #F4EEEE;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+}
+
+.back_button {
+    background-color: #F4EEEE;
+    opacity: 1;
+    padding: 20px 20px 20px 20px;
+    color: #010232;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+}
+
+.back_button:hover {
+    background-color: #F4EEEE;
+    opacity: 0.5;
+    padding: 20px 20px 20px 20px;
+    color: #010232;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+}
+
+.link_op_button {
+    background-color: #F4EEEE;
+    opacity: 1;
+    padding: 20px 20px 20px 20px;
+    color: #010232;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+}
+
+.link_op_button:hover {
+    background-color: #F4EEEE;
+    opacity: 0.5;
+    padding: 20px 20px 20px 20px;
+    color: #010232;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+}
+
+.nav_buttons {
+    flex: 100%;
+}
+
+.nav_buttons p {
+    float: right;
+    margin: 2% 0% 2% 0%;
+}
+
+.nav_buttons p a {
+    margin-right: 10px;
+    display: inline;
+    align-items:center;
+}
+
+input[type=submit] {
+    background-color: #010232;
+    opacity: 1;
+    padding: 10px 30px 10px 30px;
+    color: #F4EEEE;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+    float: right;
+}
+
+input[type=submit]:hover {
+    background-color: #010232;
+    opacity: 0.75;
+    padding: 10px 30px 10px 30px;
+    color: #F4EEEE;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 12px;
+    float: right;
+}
+
+/* This section is for Forms and Inputs */
+
+input[type=text], input[type=email], input[type=tel], input[type=username], input[type=password] {
+    background-color: #010232;
+    opacity: 1;
+    color: #F4EEEE;
+    min-width: inherit;
+    font-size: 14px;
+    padding: 15px;
+    display: block;
+    min-width: 100%;
+    margin: 5px 0px 0px 0px;
+    border-radius: 10px 0px 10px 0px;
+  }
+
+  input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus, input[type=username]:focus, input[type=password]:focus {
+    background-color: #010232;
+    opacity: 0.75;
+    color: #F4EEEE;
+    min-width: inherit;
+    font-size: 14px;
+    padding: 15px;
+    display: block;
+    min-width: 100%;
+    margin: 5px 0px 0px 0px;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 14px;
+  }
+
+textarea {
+    background-color: #010232;
+    opacity: 1;
+    color: #F4EEEE;
+    min-width: inherit;
+    font-size: 14px;
+    padding: 15px;
+    display: block;
+    min-width: 100%;
+    min-height: 150px;
+    margin: 5px 0px 0px 0px;
+    border-radius: 10px 0px 10px 0px;
+}
+
+textarea:focus {
+    background-color: #010232;
+    opacity: 0.75;
+    color: #F4EEEE;
+    min-width: inherit;
+    font-size: 14px;
+    padding: 15px;
+    display: block;
+    min-width: 100%;
+    margin: 5px 0px 0px 0px;
+    border-radius: 10px 0px 10px 0px;
+    font-size: 14px;
+}
+
+select {
+    background-color: #010232;
+    opacity: 1;
+    color: #F4EEEE;
+    min-width: inherit;
+    font-size: 14px;
+    padding: 15px;
+    display: block;
+    min-width: 100%;
+    margin: 5px 0px 0px 0px;
+    border-radius: 10px 0px 10px 0px;
+}
+
+::placeholder, input, textarea, select {
+    font-family: Mabry Pro;
+  }
+
+/* This is a section for calculator */
+
+.calculator {
+    font-size: 16px;
+    color: #F4EEEE;
+    font-weight: bold;
+    text-align: center;
+    margin: 10% 0 0 0;
+}
+
+.calculator table {
+    min-width: 100%;
+    table-layout: fixed;
+    border-spacing: 10px;
+    min-height: 420px;
+}
+
+.calculator td {
+    background-color: #010232;
+    opacity: 1;
+    padding: 5%;
+    border-radius: 10px 10px 10px 10px;
+    text-align: center;
+    width: 20px;
+    height: 25%;
+}
+
+.calculator td:hover {
+    background-color: #010232;
+    opacity: 0.5;
+    padding: 5%;
+    border-radius: 10px 10px 10px 10px;
+    text-align: center;
+    width: 20px;
+    height: 25%;
+}
+
+.calculator th {
+    background-color: #010232;
+    opacity: 1;
+    padding: 10%;
+    border-radius: 10px 10px 10px 10px;
+    text-align: left;
+    min-width: 100%;
+}
+
+/* This is a section for images */
+
+.header_logo {
+    height: 30px;
+    width: 116px;
+    background-image: url();
+}
+
+.hello_icon {
+    height: 35px;
+    width: 35px;
+    }
+
+.col_head_icon {
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+}
+
+.list_icon {
+    height: 14px;
+    width: 14px;
+    margin-right: 10px;
+}
+
+.intro_image {
+
+    background: url(images\intro_backgbround.png);
+    filter: drop-shadow(0px 10px 4px rgba(0, 0, 0, 0.2));
+}
+
+.contact_col .contact_image {
+    position: absolute;
+    max-width: 614px;
+    max-height: 534px;
+    margin: 0% 0% 0% 0%;
+}
