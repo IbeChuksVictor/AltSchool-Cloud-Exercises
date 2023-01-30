@@ -67,3 +67,5 @@ resource "aws_security_group" "ASTE-lb-sg" {
     cidr_blocks = var.allowed_cidr_block
   }
 }
+
+# Output Variables for Security Groups

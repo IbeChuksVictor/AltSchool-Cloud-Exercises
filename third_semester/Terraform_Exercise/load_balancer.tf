@@ -59,3 +59,4 @@ resource "aws_lb_listener" "ASTE-lb-http-listener" {
   }
 }
   
+  # Output Variables for the Load Balancer, Target Group, and Listener

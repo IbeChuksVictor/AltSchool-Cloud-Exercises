@@ -11,3 +11,5 @@ resource "aws_instance" "ASTE-webservers" {
     Name = "${var.project_name}-${each.key}"
   }
 }
+
+# Output Variables for Instances

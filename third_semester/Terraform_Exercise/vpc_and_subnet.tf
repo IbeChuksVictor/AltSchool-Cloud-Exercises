@@ -16,7 +16,7 @@ resource "aws_subnet" "ASTE-subnets" {
   availability_zone = each.value["AZ"]
 
   tags = {
-    Name = "${var.project_name}-pub-${each.key}"
+    Name = "${var.project_name}-${each.key}"
   }
 }
 
@@ -52,6 +52,7 @@ resource "aws_route_table_association" "ASTE-rtb-association" {
   route_table_id = aws_route_table.ASTE-rtb.id
 }
 
+# Output Variables for the VPC and Subnets
 output "vpc_id" {
   value = aws_vpc.ASTE-vpc.id
 }
