@@ -51,3 +51,23 @@ resource "aws_route_table_association" "ASTE-rtb-association" {
   subnet_id      = aws_subnet.ASTE-subnets[each.key].id
   route_table_id = aws_route_table.ASTE-rtb.id
 }
+
+output "vpc_id" {
+  value = aws_vpc.ASTE-vpc.id
+}
+
+output "public_subnet_id_sub-1" {
+  value = aws_subnet.ASTE-subnets["pub-1"].id
+}
+
+output "public_subnet_id_sub-2" {
+  value = aws_subnet.ASTE-subnets["pub-2"].id
+}
+
+output "public_subnet_id_sub-3" {
+  value = aws_subnet.ASTE-subnets["pub-3"].id
+}
+
+output "internet_gateway" {
+  value = aws_internet_gateway.ASTE-igw
+}

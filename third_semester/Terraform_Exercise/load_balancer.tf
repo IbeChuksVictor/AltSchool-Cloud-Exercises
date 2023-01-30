@@ -4,7 +4,7 @@ resource "aws_lb" "ASTE-lb" {
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.ASTE-lb-sg.id]
-  subnets                    = [aws_subnet.ASTE-subnets["sub-1"].id, aws_subnet.ASTE-subnets["sub-2"].id, aws_subnet.ASTE-subnets["sub-3"].id]
+  subnets                    = [for subnets in aws_subnet.ASTE-subnets : subnets.id]
   enable_deletion_protection = false
 
   tags = {
@@ -38,6 +38,13 @@ resource "aws_lb_target_group" "ASTE-lb-tg" {
   tags = {
     Name = "${var.project_name}-lb-tg"
   }
+}
+
+resource "aws_lb_target_group_attachment" "ASTE-lb-tg-attachment" {
+  for_each         = aws_instance.ASTE-webservers
+  target_group_arn = aws_lb_target_group.ASTE-lb-tg.arn
+  target_id        = each.value.id
+  port             = var.http_port
 }
 
 # Add a listener to the load balancer
