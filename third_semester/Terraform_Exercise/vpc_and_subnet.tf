@@ -16,7 +16,7 @@ resource "aws_subnet" "ASTE-subnets" {
   availability_zone = each.value["AZ"]
 
   tags = {
-    Name = "${var.project_name}-${each.key}"
+    Name = "${var.project_name}-Subnet-${each.key}"
   }
 }
 
@@ -57,16 +57,8 @@ output "vpc_id" {
   value = aws_vpc.ASTE-vpc.id
 }
 
-output "public_subnet_id_sub-1" {
-  value = aws_subnet.ASTE-subnets["pub-1"].id
-}
-
-output "public_subnet_id_sub-2" {
-  value = aws_subnet.ASTE-subnets["pub-2"].id
-}
-
-output "public_subnet_id_sub-3" {
-  value = aws_subnet.ASTE-subnets["pub-3"].id
+output "ASTE-subnets" {
+  value = { for AZ, subnets in aws_subnet.ASTE-subnets : AZ => subnets.id }
 }
 
 output "internet_gateway" {

@@ -69,3 +69,10 @@ resource "aws_security_group" "ASTE-lb-sg" {
 }
 
 # Output Variables for Security Groups
+output "aws-security-group-webserver-id" {
+  value = aws_security_group.ASTE-webserver-sg.id
+}
+
+output "aws-security-group-lb-id" {
+  value = aws_security_group.ASTE-lb-sg.id
+}

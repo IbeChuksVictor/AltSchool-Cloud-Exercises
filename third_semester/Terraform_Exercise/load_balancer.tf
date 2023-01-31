@@ -58,5 +58,16 @@ resource "aws_lb_listener" "ASTE-lb-http-listener" {
     type             = "forward"
   }
 }
-  
-  # Output Variables for the Load Balancer, Target Group, and Listener
+
+# Output Variables for the Load Balancer, Target Group, and Listener
+output "ASTE-lb-dns-name" {
+  value = aws_lb.ASTE-lb.dns_name
+}
+
+output "ASTE-lb-arn" {
+  value = aws_lb.ASTE-lb.arn
+}
+
+output "ASTE-lb-zone-id" {
+  value = aws_lb.ASTE-lb.zone_id
+}
