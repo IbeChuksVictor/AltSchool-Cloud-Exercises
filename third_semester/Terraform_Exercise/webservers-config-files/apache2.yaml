@@ -12,3 +12,10 @@
 
   roles:
     - apache2
+
+- name: Deploy app
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - load_app
