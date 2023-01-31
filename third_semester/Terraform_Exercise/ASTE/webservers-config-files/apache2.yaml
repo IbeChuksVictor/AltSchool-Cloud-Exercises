@@ -1,0 +1,14 @@
+---
+- name: Install Apache2
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+  roles:
+    - apache2
