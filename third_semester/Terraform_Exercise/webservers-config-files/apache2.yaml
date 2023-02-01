@@ -11,5 +11,4 @@
   roles:
     - apache2
     - load_app
-    - set_timezone
-  
+    - set_timezone  
