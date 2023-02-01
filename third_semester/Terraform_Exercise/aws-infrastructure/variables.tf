@@ -16,4 +16,8 @@ variable "allowed_cidr_block" {}
 variable "ami" {}
 variable "instance_type" {}
 variable "key_name" {}
+variable "ssh_user" {}
+variable "ssh_private_key" {}
+variable "filename" {}
 variable "domain-name" {}
+variable "sub_domain_name" {}

@@ -1,9 +1,7 @@
 ---
 - name: Install Apache2
   hosts: all
-  remote_user: ubuntu
   become: yes
-  become_method: sudo
   pre_tasks:
     - name: Update apt cache
       apt:
@@ -12,10 +10,6 @@
 
   roles:
     - apache2
-
-- name: Deploy app
-  hosts: all
-  become: yes
-  become_method: sudo
-  roles:
     - load_app
+    - set_timezone
+  

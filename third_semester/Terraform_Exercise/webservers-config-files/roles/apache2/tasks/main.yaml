@@ -3,9 +3,5 @@
   apt:
     name: apache2
     state: latest
-- name: Start Apache2
-  service:
-    name: apache2
-    state: started
-    enabled: yes
+- notify: Restart Apache2
     
