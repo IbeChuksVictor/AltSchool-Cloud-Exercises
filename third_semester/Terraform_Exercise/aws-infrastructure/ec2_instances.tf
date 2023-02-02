@@ -20,7 +20,7 @@ resource "aws_instance" "ASTE-webservers" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook apache2.yaml"
+    command = "ansible-playbook ${var.apache_config}"
   }
   tags = {
     Name = "${var.project_name}-${each.key}-webserver"
