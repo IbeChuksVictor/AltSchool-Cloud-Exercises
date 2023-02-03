@@ -14,6 +14,12 @@
       name: apache2
       state: present
 
+  - name: install php
+    apt:
+      - php
+      - libapache2-mod-php
+    state: present
+
   - name: Set timezone to Africa/Lagos
     timezone:
       name: Africa/Lagos
