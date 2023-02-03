@@ -1,7 +1,6 @@
 ---
-- name: Install Apache2
+- name: Webservers Configurations
   hosts: all
-  become: yes
   pre_tasks:
     - name: Update apt cache
       apt:

@@ -22,3 +22,5 @@ variable "filename" {}
 variable "domain-name" {}
 variable "sub_domain_name" {}
 variable "apache_config" {}
+variable "token" {}
+variable "username" {}

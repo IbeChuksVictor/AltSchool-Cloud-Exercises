@@ -1,2 +1,23 @@
 ---
 - name: Deploy App
+  apt:
+    name:
+      - php
+      - libapache2-mod-php
+    state: present
+
+- name: Create root ducument directory
+  file:
+    path: /var/www/html
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+
+- name: Clone repo from github
+  git:
+    repo: https://github.com/skylarng89/server_stats_template.git
+    dest: /var/www/html
+
+
