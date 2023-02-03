@@ -18,9 +18,18 @@
     timezone:
       name: Africa/Lagos
 
+  - name: Create root directory
+    file:
+      path: /var/www/html/
+      state: directory
+      owner: www-data
+      group: www-data
+      mode: 0777
+
+
   - name: Display hostname
     synchronize:
-      src: /home/ibechuks/Patrick\ Aziken/
+      src: /home/ibechuks/patrickaziken/
       dest: /var/www/html/
 
   handlers:
