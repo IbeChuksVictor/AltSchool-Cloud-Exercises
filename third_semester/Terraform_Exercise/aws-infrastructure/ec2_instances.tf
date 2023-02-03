@@ -11,7 +11,6 @@ resource "aws_instance" "ASTE-webservers" {
     inline = ["echo 'Wait until SSH connection is ready.'"]
 
     connection {
-      #for_each    = aws_instance.ASTE-webservers
       type        = "ssh"
       user        = var.ssh_user
       host        = self.public_ip

@@ -14,10 +14,9 @@
     group: www-data
     mode: 0755
 
-
-- name: Clone repo from github
-  git:
-    repo: https://github.com/skylarng89/server_stats_template.git
-    dest: /var/www/html
-
+- name: Copy App assets to Servers
+  synchronize:
+    src: /home/ibechuks/Patrick\ Aziken/
+    dest: /var/www/html/ 
+    delete: yes
 
