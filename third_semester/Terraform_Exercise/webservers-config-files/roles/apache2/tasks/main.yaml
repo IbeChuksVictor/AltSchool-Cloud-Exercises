@@ -1,7 +1,0 @@
----
-- name: Install Apache2
-  apt:
-    name: apache2
-    state: latest
-- notify: Restart Apache2    
-

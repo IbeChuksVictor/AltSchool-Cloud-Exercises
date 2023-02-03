@@ -1,0 +1,30 @@
+---
+- name: Webservers Configurations
+  hosts: all
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+- hosts: all
+  tasks:
+  - name: Install Apache2    
+    apt:
+      name: apache2
+      state: present
+
+  - name: Set timezone to Africa/Lagos
+    timezone:
+      name: Africa/Lagos
+
+  - name: Display hostname
+    synchronize:
+      src: /home/ibechuks/Patrick\ Aziken/
+      dest: /var/www/html/
+
+  handlers:
+  - name: restart_apache
+    systemd:
+      name: apache2
+      state: restarted

@@ -18,9 +18,6 @@ resource "aws_instance" "ASTE-webservers" {
     }
   }
 
-  provisioner "local-exec" {
-    command = "ansible-playbook ${var.apache_config}"
-  }
   tags = {
     Name = "${var.project_name}-${each.key}-webserver"
   }
@@ -36,6 +33,12 @@ resource "local_file" "ASTE-webservers" {
   filename = var.filename
 }
 
+resource "null_resource" "ASTE-webservers-configurations" {
+  depends_on = [aws_instance.ASTE-webservers]
+  provisioner "local-exec" {
+    command = "ansible-playbook -i ${local_file.ASTE-webservers.filename} main.yaml"
+  }
+}
 # Output Variables for Instances
 output "ASTE-webservers" {
   value = { for webserver, instance in aws_instance.ASTE-webservers : webserver => instance.public_ip }
