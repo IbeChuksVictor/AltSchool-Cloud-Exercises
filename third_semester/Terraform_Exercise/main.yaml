@@ -9,17 +9,20 @@
 
 - hosts: all
   tasks:
-  - name: Install Apache2    
+  - name: Install Apache2 and PHP
     apt:
-      name: apache2
-      state: present
-
-  - name: install php
-    apt:
-      name:
+      pkg:
+        - apache2
         - php
         - libapache2-mod-php
-      state: present
+      state: latest
+      update_cache: yes
+
+  - name: Start and Enable Apache2
+    service:
+      name: apache2
+      state: started
+      enabled: yes
 
   - name: Set timezone to Africa/Lagos
     timezone:
@@ -33,14 +36,19 @@
       group: www-data
       mode: 0777
 
+  - name: Delete Apache Index file
+    file:
+      path: /var/www/html/index.html
+      state: absent
 
   - name: Display hostname
     synchronize:
       src: /home/ibechuks/patrickaziken/
       dest: /var/www/html/
+    notify: reload apache
 
   handlers:
-  - name: restart_apache
-    systemd:
+  - name: reload apache
+    service:
       name: apache2
-      state: restarted
+      state: reloaded
